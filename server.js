@@ -1,13 +1,21 @@
 // server.js
-const jsonServer = require('json-server')
-const server = jsonServer.create()
-const router = jsonServer.router('db.json')
-const middlewares = jsonServer.defaults()
+import jsonServer from 'json-server';
+import path from 'path';
+import { fileURLToPath } from 'url';
 
-const port = process.env.PORT || 3001
+// Setup __dirname equivalent in ES Module
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
-server.use(middlewares)
-server.use(router)
+const server = jsonServer.create();
+const router = jsonServer.router(path.join(__dirname, 'db.json'));
+const middlewares = jsonServer.defaults();
+
+const port = process.env.PORT || 3000;
+
+server.use(middlewares);
+server.use(router);
+
 server.listen(port, () => {
-  console.log(`JSON Server is running on port ${port}`)
-})
+  console.log(`JSON Server is running on port ${port}`);
+});
