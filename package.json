@@ -2,8 +2,7 @@
   "name": "group-6-car-hire-react-app",
   "private": true,
   "version": "0.0.0",
-  "type": "module",
-  "scripts": {
+"scripts": {
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
