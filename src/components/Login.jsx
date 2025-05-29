@@ -8,17 +8,25 @@ function Login() {
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
-    e.preventDefault();
+   e.preventDefault();
     try {
-      const response = await fetch("https://group-6-car-hire-react-app.onrender.com/login", {
+    const response = await fetch("https://group-6-car-hire-react-app.onrender.com/users", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }),
       });
+      const data = await response.json();
+      if (!response.ok) throw new Error(data.message || "Invalid email or password.");
 
-      if (!response.ok) throw new Error("Invalid email or password.");
-      navigate("/cars"); // Redirect to car listing after login
-    } catch (err) {
+      // Save authentication token
+      localStorage.setItem("token", data.token);
+
+      // Redirect to cars page
+      navigate("/cars");
+
+      //if (!response.ok) throw new Error("Invalid email or password.");
+     navigate("/cars"); // Redirect to car listing after login
+    }catch (err) {
       setError(err.message);
     }
   };
