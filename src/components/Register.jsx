@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { apiPost } from "../api.jsx";
 
 function Register() {
   const [name, setName] = useState("");
@@ -7,25 +8,25 @@ function Register() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState(null);
+  const [message, setMessage] = useState("")
   const navigate = useNavigate();
 
   const handleRegister = async (e) => {
     e.preventDefault();
 
     if (password !== confirmPassword) {
-      setError("Passwords do not match!");
+      setError("Registration failed");
       return;
     }
-
+    const newUser = {
+        name,
+        email,
+        password
+    }
     try {
-      const response = await fetch("https://group-6-car-hire-react-app.onrender.com/register", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, email, password }),
-      });
-
-      if (!response.ok) throw new Error("Registration failed. Please try again.");
-      navigate("/login"); // Redirect to login page
+      const response = await apiPost("/users",newUser)
+      
+      setMessage("Registration successful")
     } catch (err) {
       setError(err.message);
     }

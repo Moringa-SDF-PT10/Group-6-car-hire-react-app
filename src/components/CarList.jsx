@@ -14,10 +14,15 @@ function CarList() {
     <div>
       <h1>Available Cars</h1>
       <ul>
-        {cars.map(car => (
-          <li key={car.id}>{car.make} - {car.model}</li>
-        ))}
-      </ul>
+  {cars.map(car => (
+    <li key={car.id}>
+      {car.make} - {car.model}
+      <img src={`/assets/${car.make.toLowerCase()}-${car.model.toLowerCase()}.jpg`} 
+           alt={`${car.make} ${car.model}`} width="300" />
+    </li>
+  ))}
+</ul>
+
     </div>
   );
 }
