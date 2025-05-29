@@ -6,7 +6,6 @@
       "model": "Camry",
       "fuelType": "Petrol",
       "capacity": 5,
-      "driver": "Lucy Mwangi",
       "pricePerDay": 4500,
       "status": "available",
       "dateAvailable": null
@@ -17,7 +16,6 @@
       "model": "Accord",
       "fuelType": "Petrol",
       "capacity": 5,
-      "driver": "Sarah Njeri",
       "pricePerDay": 4700,
       "status": "booked",
       "dateAvailable": "2025-06-01"
@@ -28,7 +26,6 @@
       "model": "X-Trail",
       "fuelType": "Diesel",
       "capacity": 7,
-      "driver": "John Maina",
       "pricePerDay": 6000,
       "status": "available",
       "dateAvailable": null
@@ -39,7 +36,6 @@
       "model": "CX-5",
       "fuelType": "Petrol",
       "capacity": 5,
-      "driver": "Ian Derrick",
       "pricePerDay": 5000,
       "status": "booked",
       "dateAvailable": "2025-05-29"
@@ -50,7 +46,6 @@
       "model": "Ranger",
       "fuelType": "Diesel",
       "capacity": 5,
-      "driver": "Peter Otieno",
       "pricePerDay": 5500,
       "status": "available",
       "dateAvailable": null
@@ -61,7 +56,6 @@
       "model": "D-Max",
       "fuelType": "Diesel",
       "capacity": 5,
-      "driver": "Mary Achieng",
       "pricePerDay": 5300,
       "status": "booked",
       "dateAvailable": "2025-06-03"
@@ -72,7 +66,6 @@
       "model": "Golf",
       "fuelType": "Petrol",
       "capacity": 5,
-      "driver": "Victor Kimathi",
       "pricePerDay": 4800,
       "status": "available",
       "dateAvailable": null
@@ -83,7 +76,6 @@
       "model": "Trailblazer",
       "fuelType": "Diesel",
       "capacity": 7,
-      "driver": "Faith Chege",
       "pricePerDay": 6200,
       "status": "booked",
       "dateAvailable": "2025-06-10"
@@ -94,7 +86,6 @@
       "model": "Forester",
       "fuelType": "Petrol",
       "capacity": 5,
-      "driver": "Moses Dianga",
       "pricePerDay": 5100,
       "status": "available",
       "dateAvailable": null
@@ -105,7 +96,6 @@
       "model": "Tucson",
       "fuelType": "Hybrid",
       "capacity": 5,
-      "driver": "Ann Muthoni",
       "pricePerDay": 5400,
       "status": "available",
       "dateAvailable": null
