@@ -3,6 +3,7 @@ import Home from "./Home";
 import Login from "./Login";
 import Register from "./Register";
 import PasswordReset from "./PasswordReset";
+import NewPassword from "./NewPassword"; // Since both files are in 'components'
 import CarList from "./CarList";
 
 function App() {
@@ -13,6 +14,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/password-reset" element={<PasswordReset />} />
+         <Route path="/update-password/:token" element={<NewPassword />} />
         <Route path="/cars" element={<CarList />} />
       </Routes>
     </Router>
