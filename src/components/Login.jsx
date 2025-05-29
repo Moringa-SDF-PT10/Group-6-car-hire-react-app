@@ -52,6 +52,7 @@ function Login() {
         <button type="submit">Login</button>
       </form>
       {error && <p style={{ color: "red" }}>{error}</p>}
+      <a href="/password-reset">Forgot Password?</a>
     </div>
   );
 }

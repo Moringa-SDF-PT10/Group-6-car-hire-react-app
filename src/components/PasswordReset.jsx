@@ -25,10 +25,10 @@ function PasswordReset() {
       <h1>Password Reset</h1>
       <form onSubmit={handleReset}>
         <input
-          type="email"
-          placeholder="Enter your email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          type="password"
+          placeholder="Enter new password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
           required
         />
         <button type="submit">Reset Password</button>
