@@ -3,6 +3,14 @@ import { useState } from "react";
 function PasswordReset() {
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState(null);
+  const [password, setPassword]=useState("");
+
+
+function handlePassword (value){
+    setPassword(value);
+    return
+
+}
 
   const handleReset = async (e) => {
     e.preventDefault();
@@ -28,7 +36,7 @@ function PasswordReset() {
           type="password"
           placeholder="Enter new password"
           value={password}
-          onChange={(e) => setPassword(e.target.value)}
+          onChange={(e) => handlePassword(e.target.value)}
           required
         />
         <button type="submit">Reset Password</button>
