@@ -3,8 +3,11 @@ import Home from "./Home";
 import Login from "./Login";
 import Register from "./Register";
 import PasswordReset from "./PasswordReset";
-import NewPassword from "./NewPassword"; // Since both files are in 'components'
+import NewPassword from "./NewPassword"; 
 import CarList from "./CarList";
+import "./index.css"; 
+
+
 
 function App() {
   return (
