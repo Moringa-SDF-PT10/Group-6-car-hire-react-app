@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useParams } from "react-router-dom";
-
+import { apiPost } from "../api";
 function NewPassword() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -16,14 +16,9 @@ function NewPassword() {
       return;
     }
 
-    try {
-      const response = await fetch(`https://group-6-car-hire-react-app.onrender.com/update-password/${token}`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ password }),
-      });
+   try {
+      const data = await apiPost(`/update-password/${token}`, { password }); // ✅ Uses apiPost instead of fetch
 
-      if (!response.ok) throw new Error("Failed to update password.");
       setMessage("Your password has been successfully reset!");
     } catch (err) {
       setMessage(err.message);

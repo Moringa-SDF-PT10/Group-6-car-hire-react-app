@@ -1,13 +1,20 @@
 import { useEffect, useState } from "react";
-
+import { apiGet } from "../api.jsx";
 function CarList() {
   const [cars, setCars] = useState([]);
 
-  useEffect(() => {
-    fetch("https://group-6-car-hire-react-app.onrender.com/cars")
-      .then(response => response.json())
-      .then(data => setCars(data))
-      .catch(error => console.error("Error fetching cars:", error));
+   useEffect(() => {
+    const fetchCars = async () => {
+      try {
+        const data = await apiGet("/cars"); 
+        setCars(data); 
+      } catch (err) {
+        console.error("Error fetching cars:", err);
+        setError("Failed to load cars.");
+      }
+    };
+
+    fetchCars();
   }, []);
 
   return (

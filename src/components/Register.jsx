@@ -10,8 +10,9 @@ function Register() {
   const [error, setError] = useState(null);
   const [message, setMessage] = useState("")
   const navigate = useNavigate();
+  
 
-  const handleRegister = async (e) => {
+ const handleRegister = async (e) => {
     e.preventDefault();
 
     if (password !== confirmPassword) {
@@ -30,7 +31,7 @@ function Register() {
     } catch (err) {
       setError(err.message);
     }
-  };
+ };
 
   return (
     <div>
