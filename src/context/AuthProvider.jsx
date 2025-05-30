@@ -1,12 +1,12 @@
-import { createContext, useState } from "react";
-import { AuthContext } from "./AuthContextUtils";
+import React, { useState, useEffect } from "react";
+import AuthContext from "./AuthContext";
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  // Initialize user from localStorage
   useEffect(() => {
+    // Check localStorage for existing session
     const storedUser = localStorage.getItem("user");
     if (storedUser) {
       try {
@@ -28,8 +28,10 @@ export const AuthProvider = ({ children }) => {
     localStorage.removeItem("user");
   };
 
+  const value = { user, loading, login, logout };
+
   return (
-    <AuthContext.Provider value={{ user, login, logout, loading }}>
+    <AuthContext.Provider value={value}>
       {children}
     </AuthContext.Provider>
   );
