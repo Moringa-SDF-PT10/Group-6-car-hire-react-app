@@ -5,7 +5,7 @@ import Register from "./Register";
 import PasswordReset from "./PasswordReset";
 import NewPassword from "./NewPassword"; 
 import CarList from "./CarList";
-import "./index.css"; 
+import "../index.css"; 
 
 
 
