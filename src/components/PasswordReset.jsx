@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { apiPost } from "../api";
 
 function PasswordReset() {
   const [email, setEmail] = useState("");
@@ -11,17 +12,11 @@ function handlePassword (value){
     return
 
 }
-
-  const handleReset = async (e) => {
+ const handleReset = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch("https://group-6-car-hire-react-app.onrender.com/password-reset", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email }),
-      });
+      const data = await apiPost("/password-reset", { email }); 
 
-      if (!response.ok) throw new Error("Error sending reset link. Try again.");
       setMessage("If the email exists, a reset link has been sent!");
     } catch (err) {
       setMessage(err.message);

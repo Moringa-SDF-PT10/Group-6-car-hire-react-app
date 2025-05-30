@@ -1,16 +1,23 @@
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { apiGet } from "../api";
 
 
 function Home() {
   const [cars, setCars] = useState([]);
+useEffect(() => {
+  const fetchCars = async () => {
+    try {
+      const data = await apiGet("/cars"); 
+      setCars(data.slice(0, 3));
+    } catch (error) {
+      console.error("Error fetching cars:", error); 
+    }
+  };
 
-  useEffect(() => {
-    fetch("https://group-6-car-hire-react-app.onrender.com/cars")
-      .then(response => response.json())
-      .then(data => setCars(data.slice(0, 3))) // Display a few cars
-      .catch(error => console.error("Error fetching cars:", error));
-  }, []);
+  fetchCars();
+}, []);
+
 
   return (
     <div>
@@ -23,7 +30,7 @@ function Home() {
       </header>
 
       <section>
-        <h2>Featured Cars</h2>
+        <h2>Frequently hired Cars</h2>
         <ul>
           {cars.map(car => (
             <li key={car.id}>{car.make} - {car.model}</li>
