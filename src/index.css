@@ -163,6 +163,7 @@ button:hover, .home-container-btn:hover {
 }
 
 .header-subtitle {
+  font-style: italic;
   font-size: 1.2rem;
   margin: 1rem 0 2rem;
   color: #495057;

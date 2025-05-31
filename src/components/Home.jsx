@@ -1,7 +1,11 @@
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { apiGet } from "../api";
+import { getCarImage } from "../utilities/imageUtilities";
+
 import "../index.css";
+
+const carImages = import.meta.glob('../assets/*.png', { eager: true });
 
 function Home() {
   const [cars, setCars] = useState([]);
@@ -27,7 +31,7 @@ function Home() {
   return (
     <div className="home-container">
       <header className="header-section">
-        <h1>Welcome to Car Hire Services</h1>
+        <h1>Welcome Group 6 to Car Hire Services</h1>
         <p className="header-subtitle">Find the best car rentals at unbeatable prices!</p>
         <div className="header-actions">
           <Link to="/cars" className="home-container-btn">Browse All Cars</Link>
@@ -45,7 +49,7 @@ function Home() {
             {cars.map(car => (
               <div key={car.id} className="car-card">
                 <img 
-                  src={`/assets/${car.make.toLowerCase()}-${car.model.toLowerCase()}.jpg`}
+                  src={getCarImage(car.make, car.model)}
                   alt={`${car.make} ${car.model}`}
                   className="car-image"
                 />
