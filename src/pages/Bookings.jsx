@@ -1,5 +1,5 @@
-import { useAuth } from "./context/AuthContext";
-import { fetchBookings } from "./api";
+import { useAuth } from "../context/AuthContext";
+import { apiGet } from "./components/api";
 import { useState, useEffect } from "react";
 
 export default function Bookings() {
@@ -8,7 +8,7 @@ export default function Bookings() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetchBookings().then(data => {
+    apiGet().then(data => {
       setBookings(data.filter(b => new Date(b.endDate) > new Date()));
       setLoading(false);
     });
