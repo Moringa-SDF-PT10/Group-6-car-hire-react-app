@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
-import { useAuth } from "./context/AuthContext";
+import { useAuth } from "../context/AuthContext";
 import { Link } from "react-router-dom";
-import { fetchBookings } from "./api";
+import { apiGet } from "../components/api";
 
 export default function Dashboard() {
   const { user, logout } = useAuth();
@@ -10,12 +10,12 @@ export default function Dashboard() {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    fetchBookings()
+    apiGet()
       .then(data => {
         setBookings(data);
         setLoading(false);
       })
-      .catch(err => {
+      .catch(() => {
         setError("Failed to load bookings");
         setLoading(false);
       });
