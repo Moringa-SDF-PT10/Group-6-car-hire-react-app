@@ -14,7 +14,8 @@ function App() {
   return (
     <Router>
       <ToastContainer
-       
+       hideProgressBar={true}
+       closeOnClick
       />
 
       {/* Nav bar directly in App.jsx */}

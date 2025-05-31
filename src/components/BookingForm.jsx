@@ -2,7 +2,7 @@ import { useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { apiGet, apiPost } from '../api';
 import { toast, } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+
 //this is my original
 const BookingForm = () => {
   const { id } = useParams();
@@ -64,7 +64,7 @@ const BookingForm = () => {
 
     try {
       await apiPost('/bookings', bookingData);
-      toast.success('🚗 Booking successful!');
+      toast.success(' Booking successful!');
 
       setFormData({
         name: '',
