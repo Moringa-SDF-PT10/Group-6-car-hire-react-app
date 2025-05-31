@@ -1,31 +1,33 @@
 import { useEffect, useState } from 'react';
-import { apiGet, apiPost } from '../api'; // adjust path if needed
-import { toast, ToastContainer } from 'react-toastify';
+import { apiGet, apiPost } from '../api';
+import { toast } from 'react-toastify';
 
 const CarManagement = () => {
   const [cars, setCars] = useState([]);
   const [newCar, setNewCar] = useState({ make: '', model: '', pricePerDay: '' });
 
   useEffect(() => {
-    // Fetch existing cars using centralized API function
     apiGet('/cars')
-      .then(data => setCars(data))
-      .catch(error => console.error("Failed to fetch cars:", error));
+      .then(data => {setCars(data);
+        
+      })
+      .catch(error => {
+        console.error("Failed to fetch cars:", error);
+        toast.error("Failed to load cars.");
+      });
   }, []);
 
   const handleAddCar = async () => {
     try {
       await apiPost('/cars', {
         ...newCar,
-        pricePerDay: Number(newCar.pricePerDay), // ensure number
+        pricePerDay: Number(newCar.pricePerDay),
       });
       toast.success('Car added! ✅');
-      
-      // Refresh car list after adding
+
       const updatedCars = await apiGet('/cars');
       setCars(updatedCars);
 
-      // Clear input fields
       setNewCar({ make: '', model: '', pricePerDay: '' });
     } catch (error) {
       toast.error('Failed to add car. ❌');
@@ -64,7 +66,8 @@ const CarManagement = () => {
           </li>
         ))}
       </ul>
-      <ToastContainer position="top-right" autoClose={5000} />
+
+ 
     </div>
   );
 };

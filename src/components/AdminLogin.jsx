@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 // all my variable should be in the api
 
@@ -14,9 +15,9 @@ const AdminLogin = () => {
     // Replace with your actual authentication logic
     if (username === 'admin' && password === 'admin123') {
       localStorage.setItem('user', JSON.stringify({ username, role: 'admin' }));
-      navigate('/admin/cars');
+      navigate('/admin/choose');
     } else {
-      alert('Invalid credentials');
+      toast.error('Invalid credentials');
     }
   };
 
