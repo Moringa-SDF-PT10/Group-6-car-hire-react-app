@@ -1,15 +1,15 @@
-import { useAuth } from "../context/AuthContext";
-import { fetchBookings } from "../api";
+import { useAuth } from "./context/AuthContext";
+import { fetchBookings } from "./api";
 import { useState, useEffect } from "react";
 
-export default function BookingHistory() {
+export default function Bookings() {
   const { user } = useAuth();
   const [bookings, setBookings] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     fetchBookings().then(data => {
-      setBookings(data.filter(b => new Date(b.endDate) <= new Date()));
+      setBookings(data.filter(b => new Date(b.endDate) > new Date()));
       setLoading(false);
     });
   }, []);
@@ -19,16 +19,17 @@ export default function BookingHistory() {
 
   return (
     <div>
-      <h1>Booking History</h1>
+      <h1>Current Bookings</h1>
       {bookings.length > 0 ? (
         <ul>
           {bookings.map(booking => (
-            <li key={booking.id}>
+            <li key={booking.id}> 
               Car {booking.carId} • {booking.startDate} to {booking.endDate}
+              <button>Cancel</button>
             </li>
           ))}
         </ul>
-      ) : <p>No past bookings</p>}
+      ) : <p>No current bookings</p>}
     </div>
   );
 }

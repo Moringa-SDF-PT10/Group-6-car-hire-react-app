@@ -1,54 +1,67 @@
-import React, { useState, useEffect } from "react";
-import { useAuth } from "../context/AuthContext";
-import { getUserBookings } from "../services/api";
+import { useState, useEffect } from "react";
+import { useAuth } from "./context/AuthContext";
+import { Link } from "react-router-dom";
+import { fetchBookings } from "./api";
 
-function Dashboard() {
-  const { user } = useAuth();
+export default function Dashboard() {
+  const { user, logout } = useAuth();
   const [bookings, setBookings] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState("");
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    const fetchBookings = async () => {
-      if (!user) {
-        setLoading(false);
-        return;
-      }
-      
-      try {
-        const data = await getUserBookings(user.id);
+    fetchBookings()
+      .then(data => {
         setBookings(data);
-      } catch (err) {
-        setError(`Failed to load bookings: ${err.message}`);
-      } finally {
         setLoading(false);
-      }
-    };
+      })
+      .catch(err => {
+        setError("Failed to load bookings");
+        setLoading(false);
+      });
+  }, []);
 
-    fetchBookings();
-  }, [user]);
-
-  if (!user) return <div>Please log in to view dashboard</div>;
-  if (loading) return <div>Loading dashboard...</div>;
+  if (loading) return <div>Loading...</div>;
+  if (!user) return <div>Please <Link to="/login">log in</Link></div>;
   if (error) return <div>{error}</div>;
+
+  const currentBookings = bookings.filter(b => new Date(b.endDate) > new Date());
+  const pastBookings = bookings.filter(b => new Date(b.endDate) <= new Date());
 
   return (
     <div className="dashboard">
-      <h1>Welcome, {user.name}</h1>
-      
-      <div className="stats">
-        <h3>Total Bookings: {bookings.length}</h3>
-        <h3>Recent Activity</h3>
-        <ul>
-          {bookings.slice(0, 3).map(booking => (
-            <li key={booking.id}>
-              Booked Car {booking.carId} on {booking.startDate}
-            </li>
-          ))}
-        </ul>
-      </div>
+      <h1>Welcome, {user.name}!</h1>
+      <p>Total Bookings: {bookings.length}</p>
+
+      <section>
+        <h2>Current Bookings ({currentBookings.length})</h2>
+        {currentBookings.length > 0 ? (
+          <ul>
+            {currentBookings.map(booking => (
+              <li key={booking.id}> 
+                Car {booking.carId} • {booking.startDate} to {booking.endDate}
+                <Link to={`/bookings/${booking.id}`}>View</Link>
+              </li>
+            ))}
+          </ul>
+        ) : <p>No current bookings</p>}
+      </section>
+
+      <section>
+        <h2>Recent Activity</h2>
+        {pastBookings.slice(0, 3).map(booking => (
+          <div key={booking.id}> 
+            Past booking: Car {booking.carId} • {booking.startDate}
+          </div>
+        ))}
+      </section>
+
+      <nav>
+        <Link to="/bookings">All Bookings</Link>
+        <Link to="/bookings/history">History</Link>
+        <Link to="/profile">Profile</Link>
+        <button onClick={logout}>Logout</button>
+      </nav>
     </div>
   );
 }
-
-export default Dashboard;

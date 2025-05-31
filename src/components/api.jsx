@@ -60,10 +60,8 @@ export async function apiPost(endpoint, data) {
     throw error;
   }
 }
-// Add these exports to your existing api.jsx file
+// Adding these exports to this api.jsx file
 
-
-// Replace the updateProfile and fetchUserProfile functions with:
 
 export const updateProfile = async (userId, data) => {
   return apiPost(`/users/${userId}`, data);
