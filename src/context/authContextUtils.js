@@ -1,6 +1,5 @@
-export function someHelper() {
-  // helper code here
-}
+import { createContext, useContext } from 'react';
 
-export const CONSTANT_VALUE = 42;
+export const AuthContext = createContext(null);
 
+export const useAuth = () => useContext(AuthContext);
