@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useAuth } from "../context/AuthProvider";
+import { useAuth } from "../context/authContextUtils";
 import { getUserBookings, deleteBooking } from "../services/api";
 
 function BookingList() {

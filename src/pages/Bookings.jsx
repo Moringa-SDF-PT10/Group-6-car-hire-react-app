@@ -1,4 +1,4 @@
-import { useAuth } from "../context/AuthProvider";
+import { useAuth } from "../context/authContextUtils";
 import { apiGet } from "../components/api";
 import { useState, useEffect } from "react";
 

@@ -1,4 +1,4 @@
-import { useAuth } from "../context/AuthProvider";
+import { useAuth } from "../context/authContextUtils";
 import { useState } from "react";
 import { updateProfile } from "../components/api";
 
