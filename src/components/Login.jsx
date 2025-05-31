@@ -1,58 +1,73 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
+import { apiPost } from "../api"; 
+import "../index.css";
 
 function Login() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+  });
   const [error, setError] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
-  const handleLogin = async (e) => {
-   e.preventDefault();
-    try {
-    const response = await fetch("https://group-6-car-hire-react-app.onrender.com/users", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password }),
-      });
-      const data = await response.json();
-      if (!response.ok) throw new Error(data.message || "Invalid email or password.");
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
 
-      // Save authentication token
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    setIsLoading(true);
+    setError(null);
+
+    try {
+      const data = await apiPost("/users/login", formData);
+
       localStorage.setItem("token", data.token);
 
-      // Redirect to cars page
       navigate("/cars");
-
-      //if (!response.ok) throw new Error("Invalid email or password.");
-     navigate("/cars"); // Redirect to car listing after login
-    }catch (err) {
-      setError(err.message);
+    } catch (err) {
+      setError(err.message || "Invalid email or password");
+    } finally {
+      setIsLoading(false);
     }
   };
 
   return (
-    <div>
-      <h1>Login</h1>
+    <div className="form-container">
+      <h2>Login</h2>
       <form onSubmit={handleLogin}>
         <input
           type="email"
-          placeholder="Enter your email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
+          name="email"
+          placeholder="Email"
+          value={formData.email}
+          onChange={handleChange}
         />
+
         <input
           type="password"
-          placeholder="Enter your password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
+          name="password"
+          placeholder="Password"
+          value={formData.password}
+          onChange={handleChange}
         />
-        <button type="submit">Login</button>
+
+        <button type="submit" disabled={isLoading}>
+          {isLoading ? "Logging in..." : "Login"}
+        </button>
       </form>
-      {error && <p style={{ color: "red" }}>{error}</p>}
-      <a href="/password-reset">Forgot Password?</a>
+
+      {error && <p className="error">{error}</p>}
+
+      <p className="loginP">
+        Don't have an account? <Link to="/register">Register here</Link>
+      </p>
     </div>
   );
 }

@@ -10,14 +10,13 @@ function NewPassword() {
   const handleNewPassword = async (e) => {
     e.preventDefault();
     
-    // Validate that passwords match
     if (password !== confirmPassword) {
       setMessage("Passwords do not match.");
       return;
     }
 
    try {
-      const data = await apiPost(`/update-password/${token}`, { password }); // ✅ Uses apiPost instead of fetch
+      const data = await apiPost(`/update-password/${token}`, { password }); 
 
       setMessage("Your password has been successfully reset!");
     } catch (err) {
