@@ -1,5 +1,5 @@
 import { useAuth } from "../context/AuthContext";
-import { apiGet } from "./components/api";
+import { apiGet } from "../components/api";
 import { useState, useEffect } from "react";
 
 export default function Bookings() {
