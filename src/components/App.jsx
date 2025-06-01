@@ -1,6 +1,12 @@
-import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import AdminChoice from './AdminChoice';
+import BookingForm from './BookingForm';
+import AdminRoute from './AdminRoute';
+import CarManagement from './CarManagement';
+import UserManagement from './UserManagement';
+import AdminLogin from './AdminLogin';
 import Home from "./Home";
 import Login from "./Login";
 import Register from "./Register";
@@ -12,7 +18,33 @@ import "../index.css";
 
 function App() {
   return (
-    <Router>
+    <Router>    
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/book/:id" element={<BookingForm />} />
+        <Route path="/car" element={<CarList />} />
+        <Route path="/admin/login" element={<AdminLogin />} />
+        <Route path="/admin/choice" element={<AdminChoice />} />
+        
+        {/* Admin routes */}
+        <Route
+          path="/admin/cars"
+          element={
+            <AdminRoute>
+              <CarManagement />
+            </AdminRoute>
+          }
+        />
+        <Route
+          path="/admin/users"
+          element={
+            <AdminRoute>
+              <UserManagement />
+            </AdminRoute>
+          }
+        />
+        <Route path="*" element={<div>404 Page Not Found</div>} />
+      </Routes>
       <div className="app-layout">
         <nav className="navbar">
           <Link to="/" className="nav-link">Home</Link>

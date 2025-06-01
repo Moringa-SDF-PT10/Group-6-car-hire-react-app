@@ -39,6 +39,19 @@ function CarList() {
                 alt={`${car.make} ${car.model}`}
                 className="car-image"
               />
+              <div>
+                  {cars.length > 0 ? (
+                    cars.map(car => (
+                      <li key={car.id}>
+                        <Link to={`/book/${car.id}`}>
+                          {car.make} {car.model} – KES {car.pricePerDay}/day
+                        </Link>
+                      </li>
+                    ))
+                  ) : (
+                    <li>No cars available right now.</li>
+                  )}
+              </div>
               <div className="car-details">
                 <h3>{car.make} {car.model}</h3>
                 <Link to={`/cars/${car.id}`} className="btn-outline">
