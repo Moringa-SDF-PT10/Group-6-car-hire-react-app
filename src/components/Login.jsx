@@ -40,7 +40,6 @@ function Login() {
 
   return (
     <div className="form-container">
-      <h2>Login</h2>
       <form onSubmit={handleLogin}>
         <input
           type="email"

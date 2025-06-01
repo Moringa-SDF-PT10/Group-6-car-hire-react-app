@@ -31,13 +31,12 @@ function Home() {
   return (
     <div className="home-container">
       <header className="header-section">
-        <h1>Welcome Group 6 to Car Hire Services</h1>
+        <h1>Welcome to Group 6 Car Hire Services</h1>
         <p className="header-subtitle">Find the best car rentals at unbeatable prices!</p>
         <div className="header-actions">
           <Link to="/cars" className="home-container-btn">Browse All Cars</Link>
         </div>
       </header>
-
       <section className="featured-cars">
         <h2>Frequently Hired Cars</h2>
         {loading ? (
@@ -64,10 +63,6 @@ function Home() {
           </div>
         )}
       </section>
-
-      <footer className="main-footer">
-        <p>© 2025 Car Hire Services. All rights reserved.</p>
-      </footer>
     </div>
   );
 }

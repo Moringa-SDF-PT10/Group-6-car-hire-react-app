@@ -5,25 +5,35 @@ import Register from "./Register";
 import PasswordReset from "./PasswordReset";
 import NewPassword from "./NewPassword";
 import CarList from "./CarList";
+import CarDetails from "./CarDetails";
 import "../index.css";
 
 function App() {
   return (
     <Router>
-      <nav className="navbar">
-        <Link to="/" className="nav-link">Home</Link>
-        <Link to="/login" className="nav-link">Login</Link>
-        <Link to="/register" className="nav-link">Register</Link>
-      </nav>
+      <div className="app-layout">
+        <nav className="navbar">
+          <Link to="/" className="nav-link">Home</Link>
+          <Link to="/login" className="nav-link">Login</Link>
+          <Link to="/register" className="nav-link">Register</Link>
+        </nav>
 
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/password-reset" element={<PasswordReset />} />
-        <Route path="/update-password/:token" element={<NewPassword />} />
-        <Route path="/cars" element={<CarList />} />
-      </Routes>
+        <main className="main-content-area">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/password-reset" element={<PasswordReset />} />
+            <Route path="/update-password/:token" element={<NewPassword />} />
+            <Route path="/cars" element={<CarList />} />
+            <Route path="/cars/:id" element={<CarDetails />} />
+          </Routes>
+        </main>
+
+        <footer className="main-footer">
+          <p>© 2025 Car Hire Services. All rights reserved.</p>
+        </footer>
+      </div>
     </Router>
   );
 }

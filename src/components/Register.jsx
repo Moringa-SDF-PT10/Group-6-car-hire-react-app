@@ -35,7 +35,6 @@ function Register() {
 
   return (
     <div>
-      <h1>Register</h1>
       <form onSubmit={handleRegister}>
         <input
           type="text"

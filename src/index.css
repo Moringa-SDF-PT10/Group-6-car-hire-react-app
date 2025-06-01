@@ -1,15 +1,25 @@
-
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-body {
+html, body {
+  height: 100%;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   background-color: #f7f9fc;
   color: #333;
   line-height: 1.6;
+}
+
+.app-layout {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.main-content-area {
+  flex: 1;
   padding: 20px;
 }
 
@@ -41,23 +51,8 @@ h1, h2, h3 {
 .navbar {
   padding: 1rem;
   background: #0d6efd;
-  margin-bottom: 20px;
-  border-radius: 8px;
-}
-
-.main-content {
-  padding: 20px;
-  max-width: 1200px;
-  margin: 0 auto;
-}
-
-header, footer {
-  background-color: #0d6efd;
-  color: white;
-  padding: 15px 20px;
-  text-align: center;
-  border-radius: 8px;
-  margin-bottom: 20px;
+  width: 100%;
+  margin: 20px auto 0;
 }
 
 .nav-link {
@@ -96,7 +91,7 @@ input, button, select, textarea {
   border: 1px solid #ccc;
 }
 
-button, .home-container-btn {
+button {
   background-color: #0d6efd;
   color: white;
   font-weight: bold;
@@ -107,12 +102,14 @@ button, .home-container-btn {
   border-radius: 6px;
 }
 
-button:hover, .home-container-btn:hover {
+button:hover {
   background-color: #084298;
 }
 
 .car-container {
   padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
 .car-grid {
@@ -145,10 +142,6 @@ button:hover, .home-container-btn:hover {
   text-align: center;
 }
 
-.mt-20 {
-  margin-top: 20px;
-}
-
 .home-container {
   max-width: 1200px;
   margin: 0 auto;
@@ -156,7 +149,7 @@ button:hover, .home-container-btn:hover {
 
 .header-section {
   text-align: center;
-  padding: 3rem 1rem;
+  padding: 1rem;
   background: linear-gradient(rgba(13, 110, 253, 0.1), rgba(13, 110, 253, 0.1));
   border-radius: 8px;
   margin-bottom: 2rem;
@@ -176,7 +169,7 @@ button:hover, .home-container-btn:hover {
   flex-wrap: wrap;
 }
 
-.btn-outline {
+.btn-outline, .home-container-btn {
   background: transparent;
   color: #0d6efd;
   border: 2px solid #0d6efd;
@@ -187,7 +180,7 @@ button:hover, .home-container-btn:hover {
   transition: all 0.3s;
 }
 
-.btn-outline:hover {
+.btn-outline:hover, .home-container-btn:hover {
   background: #0d6efd;
   color: white;
 }
@@ -203,13 +196,73 @@ button:hover, .home-container-btn:hover {
 }
 
 .main-footer {
+  width: 100%;
   text-align: center;
-  padding: 1.5rem;
+  padding: 1rem;
   background-color: #0d6efd;
-  border-radius: 8px;
+  color: white;
 }
 
 .loginP {
   text-align: center;
   margin: 10px;
+}
+
+.car-details-page {
+  padding: 2rem;
+  background-color: #f9f9f9;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.car-details-card {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  background-color: white;
+  border-radius: 8px;
+  padding: 2rem;
+  max-width: 900px;
+  margin: 0 auto;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.car-details-image {
+  width: 100%;
+  max-height: 400px;
+  object-fit: contain;
+  border-radius: 8px;
+}
+
+.car-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.car-info h2 {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+.car-info p {
+  font-size: 1.1rem;
+  color: #333;
+}
+
+@media (min-width: 768px) {
+  .car-details-card {
+    flex-direction: row;
+    align-items: flex-start;
+  }
+
+  .car-details-image {
+    width: 50%;
+    max-width: 400px;
+  }
+
+  .car-info {
+    width: 50%;
+    padding-left: 2rem;
+  }
 }

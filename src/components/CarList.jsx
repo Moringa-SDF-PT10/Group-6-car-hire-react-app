@@ -30,26 +30,25 @@ function CarList() {
 
   return (
     <div className="car-container">
-      <h1 className="page-title">Available Cars</h1>
-      <div className="car-grid">
-        {cars.map(car => (
-          <div key={car.id} className="car-card">
-            <img
-              src={getCarImage(car.make, car.model)}
-              alt={`${car.make} ${car.model}`}
-              className="car-image"
-            />
-            <div className="car-details">
-              <h3>{car.make} {car.model}</h3>
-              <p>${car.pricePerDay}/day</p>
-              <Link to={`/cars/${car.id}`} className="btn-primary">
-                View Details
-              </Link>
+        <h1 className="page-title">Available Cars</h1>
+        <div className="car-grid">
+          {cars.map(car => (
+            <div key={car.id} className="car-card">
+              <img
+                src={getCarImage(car.make, car.model)}
+                alt={`${car.make} ${car.model}`}
+                className="car-image"
+              />
+              <div className="car-details">
+                <h3>{car.make} {car.model}</h3>
+                <Link to={`/cars/${car.id}`} className="btn-outline">
+                  View Details
+                </Link>
+              </div>
             </div>
-          </div>
-        ))}
-      </div>
-    </div>
+          ))}
+        </div>
+      </div>    
   );
 }
 
