@@ -4,23 +4,21 @@ import 'react-toastify/dist/ReactToastify.css';
 import AdminChoice from './AdminChoice';
 import BookingForm from './BookingForm';
 import AdminRoute from './AdminRoute';
-import Home from './Home';
 import CarManagement from './CarManagement';
 import UserManagement from './UserManagement';
 import AdminLogin from './AdminLogin';
-import CarList from './CarList';
+import Home from "./Home";
+import Login from "./Login";
+import Register from "./Register";
+import PasswordReset from "./PasswordReset";
+import NewPassword from "./NewPassword";
+import CarList from "./CarList";
+import CarDetails from "./CarDetails";
+import "../index.css";
 
 function App() {
   return (
-    <Router>
-      <ToastContainer
-       hideProgressBar={true}
-       closeOnClick
-      />
-
-      {/* Nav bar directly in App.jsx */}
-      
-
+    <Router>    
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/book/:id" element={<BookingForm />} />
@@ -47,6 +45,32 @@ function App() {
         />
         <Route path="*" element={<div>404 Page Not Found</div>} />
       </Routes>
+      <div className="app-layout">
+        <nav className="navbar">
+          <Link to="/" className="nav-link">Home</Link>
+          <Link to="/login" className="nav-link">Login</Link>
+          <Link to="/register" className="nav-link">Register</Link>
+        </nav>
+
+        <main className="main-content-area">
+          <>
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/register" element={<Register />} />
+              <Route path="/password-reset" element={<PasswordReset />} />
+              <Route path="/update-password/:token" element={<NewPassword />} />
+              <Route path="/cars" element={<CarList />} />
+              <Route path="/cars/:id" element={<CarDetails />} />
+            </Routes>
+            <ToastContainer position="top-center" autoClose={3000} />
+          </>
+        </main>
+
+        <footer className="main-footer">
+          <p>© 2025 Car Hire Services. All rights reserved.</p>
+        </footer>
+      </div>
     </Router>
   );
 }
