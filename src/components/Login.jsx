@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import { apiPost } from "../api"; 
+import { apiGet } from "../api";
+import { toast } from "react-toastify";
 import "../index.css";
 
 function Login() {
@@ -25,14 +26,25 @@ function Login() {
     setIsLoading(true);
     setError(null);
 
-    try {
-      const data = await apiPost("/users/login", formData);
+      try {
+      const users = await apiGet("/users");
 
-      localStorage.setItem("token", data.token);
+      const matchedUser = users.find(
+        (user) =>
+          user.email === formData.email && user.password === formData.password
+      );
+
+      if (!matchedUser) {
+        throw new Error("Invalid email or password");
+      }
+       
+      localStorage.setItem("token", "fake-jwt-token");
 
       navigate("/cars");
     } catch (err) {
-      setError(err.message || "Invalid email or password");
+        const message = err.message || "Login failed"
+        setError(message)
+        toast.error(message)
     } finally {
       setIsLoading(false);
     }
@@ -61,9 +73,6 @@ function Login() {
           {isLoading ? "Logging in..." : "Login"}
         </button>
       </form>
-
-      {error && <p className="error">{error}</p>}
-
       <p className="loginP">
         Don't have an account? <Link to="/register">Register here</Link>
       </p>

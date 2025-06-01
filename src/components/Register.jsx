@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { apiPost } from "../api.jsx";
+import { toast } from "react-toastify";
 
 function Register() {
   const [name, setName] = useState("");
@@ -8,33 +9,47 @@ function Register() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState(null);
-  const [message, setMessage] = useState("")
-  const navigate = useNavigate();
-  
 
- const handleRegister = async (e) => {
+  const navigate = useNavigate();
+
+  const handleRegister = async (e) => {
     e.preventDefault();
 
     if (password !== confirmPassword) {
-      setError("Registration failed");
+      setError("Passwords do not match");
       return;
     }
+
     const newUser = {
-        name,
-        email,
-        password
-    }
+      name,
+      email,
+      password,
+    };
+
     try {
-      const response = await apiPost("/users",newUser)
-      
-      setMessage("Registration successful")
+      await apiPost("/users", newUser);
+
+      setName("");
+      setEmail("");
+      setPassword("");
+      setConfirmPassword("");
+      setError(null);
+
+      toast.success("Successfully registered, you can now log in");
+
+   // Redirect to login after 2 seconds
+      setTimeout(() => {
+        navigate("/login");
+      }, 2000);
     } catch (err) {
-      setError(err.message);
+      setError("Registration failed: " + err.message);
     }
- };
+  };
 
   return (
-    <div>
+    <div className="main-content-area">
+      <h2 className="page-title">Register</h2>
+
       <form onSubmit={handleRegister}>
         <input
           type="text"
@@ -43,6 +58,7 @@ function Register() {
           onChange={(e) => setName(e.target.value)}
           required
         />
+
         <input
           type="email"
           placeholder="Email Address"
@@ -50,6 +66,7 @@ function Register() {
           onChange={(e) => setEmail(e.target.value)}
           required
         />
+
         <input
           type="password"
           placeholder="Password"
@@ -57,6 +74,7 @@ function Register() {
           onChange={(e) => setPassword(e.target.value)}
           required
         />
+
         <input
           type="password"
           placeholder="Confirm Password"
@@ -64,9 +82,11 @@ function Register() {
           onChange={(e) => setConfirmPassword(e.target.value)}
           required
         />
+
         <button type="submit">Sign Up</button>
       </form>
-      {error && <p style={{ color: "red" }}>{error}</p>}
+
+      {error && <p className="error-message">{error}</p>}
     </div>
   );
 }

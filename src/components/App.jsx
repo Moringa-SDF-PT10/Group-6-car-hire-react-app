@@ -1,4 +1,6 @@
 import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import Home from "./Home";
 import Login from "./Login";
 import Register from "./Register";
@@ -19,15 +21,18 @@ function App() {
         </nav>
 
         <main className="main-content-area">
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Register />} />
-            <Route path="/password-reset" element={<PasswordReset />} />
-            <Route path="/update-password/:token" element={<NewPassword />} />
-            <Route path="/cars" element={<CarList />} />
-            <Route path="/cars/:id" element={<CarDetails />} />
-          </Routes>
+          <>
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/register" element={<Register />} />
+              <Route path="/password-reset" element={<PasswordReset />} />
+              <Route path="/update-password/:token" element={<NewPassword />} />
+              <Route path="/cars" element={<CarList />} />
+              <Route path="/cars/:id" element={<CarDetails />} />
+            </Routes>
+            <ToastContainer position="top-center" autoClose={3000} />
+          </>
         </main>
 
         <footer className="main-footer">
