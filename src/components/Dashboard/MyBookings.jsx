@@ -41,17 +41,18 @@ function MyBookings() {
     fetchData();
   }, [user]);
 
-  const getCarById = (id) =>
-    cars.find((car) => Number(car.id) === Number(id));
+  const getCarById = (id) => cars.find((car) => Number(car.id) === Number(id));
 
   const handleCancelBooking = async (bookingId) => {
-    if (!window.confirm("Are you sure you want to cancel this booking?")) return;
+    const confirmCancel = window.confirm("Are you sure you want to cancel this booking?");
+    if (!confirmCancel) return;
 
     try {
       await apiDelete("/bookings", bookingId);
-      setBookings((prev) => prev.filter((b) => b.id !== bookingId));
+      setBookings((prev) => prev.filter((booking) => booking.id !== bookingId));
+      alert("Booking canceled successfully.");
     } catch (err) {
-      console.error("Failed to cancel booking:", err);
+      console.error("Cancel booking error:", err);
       alert("Something went wrong while cancelling the booking.");
     }
   };
@@ -83,7 +84,7 @@ function MyBookings() {
                       <p><strong>Return Date:</strong> {booking.returnDate}</p>
                       <p><strong>Total Price:</strong> KES {booking.totalPrice.toLocaleString()}</p>
                       <button
-                        className="cancel-btn"
+                        className="cancel-button"
                         onClick={() => handleCancelBooking(booking.id)}
                       >
                         Cancel Booking

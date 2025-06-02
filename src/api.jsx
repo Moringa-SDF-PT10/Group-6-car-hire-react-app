@@ -82,25 +82,28 @@ export async function apiPut(endpoint, data) {
   }
 }
 
+// Handling DELETE request
 export async function apiDelete(endpoint, id) {
-  const res = await fetch(`${baseUrl}${endpoint}/${id}`, {
-    method: "DELETE",
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
+  try {
+    const response = await fetch(`${BASE_URL}${endpoint}/${id}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${getToken()}`,
+      },
+    });
 
-  if (!res.ok) {
-    throw new Error("Delete request failed");
+    if (!response.ok) {
+      throw new Error(`DELETE ${endpoint}/${id} failed with status ${response.status}`);
+    }
+
+    return true;
+  } catch (error) {
+    console.error("API DELETE error:", error);
+    throw error;
   }
-
-  return true;
 }
-
 
 export const ADMIN_USERNAME = 'admin';
 export const ADMIN_PASSWORD = 'admin123';
-
 export const ADMIN_CHOICE_ROUTE = '/admin/choice';
-
-
