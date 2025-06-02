@@ -84,7 +84,6 @@ function MyBookings() {
                       <p><strong>Return Date:</strong> {booking.returnDate}</p>
                       <p><strong>Total Price:</strong> KES {booking.totalPrice.toLocaleString()}</p>
                       <button
-                        className="cancel-button"
                         onClick={() => handleCancelBooking(booking.id)}
                       >
                         Cancel Booking

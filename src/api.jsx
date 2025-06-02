@@ -83,9 +83,9 @@ export async function apiPut(endpoint, data) {
 }
 
 // Handling DELETE request
-export async function apiDelete(endpoint, id) {
+export async function apiDelete(endpoint) {
   try {
-    const response = await fetch(`${BASE_URL}${endpoint}/${id}`, {
+    const response = await fetch(`${BASE_URL}${endpoint}`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
@@ -94,7 +94,7 @@ export async function apiDelete(endpoint, id) {
     });
 
     if (!response.ok) {
-      throw new Error(`DELETE ${endpoint}/${id} failed with status ${response.status}`);
+      throw new Error(`DELETE ${endpoint} failed with status ${response.status}`);
     }
 
     return true;

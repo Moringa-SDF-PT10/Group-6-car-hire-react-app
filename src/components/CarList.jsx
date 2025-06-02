@@ -34,7 +34,7 @@ function CarList() {
 
   return (
     <div className="car-container">
-      <h1 className="page-title">Available Cars</h1>
+      <h1 className="page-title">Cars in our fleet</h1>
       <div className="car-grid">
         {cars.map(car => (
           <div key={car.id} className="car-card">

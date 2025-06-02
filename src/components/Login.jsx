@@ -31,11 +31,17 @@ function Login() {
         throw new Error("Invalid email or password");
       }
 
-      // Save token and user to localStorage
+      // Determine role
+      const isAdmin = matchedUser.email === "admin@admin.com" && matchedUser.password === "admin123";
+      const role = isAdmin ? "admin" : "user";
+
+      // Save token, user and role
       localStorage.setItem("token", "fake-jwt-token");
       localStorage.setItem("user", JSON.stringify(matchedUser));
+      localStorage.setItem("role", role);
 
-      navigate("/dashboard");
+      // Redirect based on role
+      navigate(isAdmin ? "/admin/choice" : "/dashboard");
     } catch (err) {
       const message = err.message || "Login failed";
       setError(message);
