@@ -45,7 +45,7 @@ function AvailableCars() {
               <h3>{car.make} {car.model}</h3>
               <p><strong>Year:</strong> {car.year}</p>
               <p><strong>Price per Day:</strong> KES {car.pricePerDay.toLocaleString()}</p>
-              <button onClick={() => navigate(`/book/${car.id}`)}>Book This Car</button>
+              <button className="book-btn" onClick={() => navigate(`/book/${car.id}`)}>Book This Car</button>
             </div>
           </div>
         ))}

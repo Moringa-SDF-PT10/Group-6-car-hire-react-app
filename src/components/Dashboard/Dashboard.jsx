@@ -10,6 +10,9 @@ function Dashboard() {
     <div className="dashboard-container">
       <h2>User Dashboard</h2>
       <nav className="dashboard-nav">
+        <Link to="cars" className={isActive("cars") ? "active" : ""}>
+          All Cars
+        </Link>
         <Link to="available-cars" className={isActive("available-cars") ? "active" : ""}>
           Available Cars
         </Link>

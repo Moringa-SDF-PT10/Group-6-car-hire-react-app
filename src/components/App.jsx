@@ -23,7 +23,6 @@ import AdminLogin from './AdminLogin';
 
 import "../index.css";
 
-// ✅ DEFINE Layout before App
 function Layout() {
   return (
     <div className="app-layout">
@@ -64,6 +63,7 @@ function App() {
           {/* Protected Dashboard Routes */}
           <Route path="dashboard" element={<RequireAuth role="user"><Dashboard /></RequireAuth>}>
             <Route index element={<AvailableCars />} />
+            <Route path="cars" element={<CarList />} />
             <Route path="available-cars" element={<AvailableCars />} />
             <Route path="bookings" element={<MyBookings />} />
             <Route path="edit-profile" element={<EditProfile />} />
@@ -71,7 +71,7 @@ function App() {
 
           {/* Admin Routes */}
           <Route path="admin/login" element={<AdminLogin />} />
-          <Route path="admin/choice" element={<RequireAuth role="admin"><AdminChoice /></RequireAuth>} />
+          <Route path="admin/choice" element={<AdminRoute><AdminChoice /></AdminRoute>} />
           <Route path="admin/cars" element={<AdminRoute><CarManagement /></AdminRoute>} />
           <Route path="admin/users" element={<AdminRoute><UserManagement /></AdminRoute>} />
         </Route>

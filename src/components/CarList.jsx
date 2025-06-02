@@ -49,9 +49,6 @@ function CarList() {
               <Link to={`/cars/${car.id}`} className="btn-outline">
                 View Details
               </Link>
-              <Link to={`/book/${car.id}`} className="btn-primary" style={{ marginLeft: '10px' }}>
-                Book Now
-              </Link>
             </div>
           </div>
         ))}

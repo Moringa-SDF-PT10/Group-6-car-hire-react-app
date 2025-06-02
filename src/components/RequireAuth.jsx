@@ -10,7 +10,8 @@ function RequireAuth({ children, role }) {
   }
 
   if (role && userRole !== role) {
-    return <Navigate to="/login" state={{ from: location }} replace />;
+    // Redirect to home if role mismatch (instead of login)
+    return <Navigate to="/" replace />;
   }
 
   return children;
