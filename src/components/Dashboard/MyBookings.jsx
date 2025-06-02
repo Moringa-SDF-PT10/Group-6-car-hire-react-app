@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { apiGet } from "../../api";
+import { apiGet, apiDelete } from "../../api";
 import { getCarImage } from "../../utilities/imageUtilities";
 import "../../index.css";
 
@@ -41,7 +41,20 @@ function MyBookings() {
     fetchData();
   }, [user]);
 
-  const getCarById = (id) => cars.find((car) => Number(car.id) === Number(id));
+  const getCarById = (id) =>
+    cars.find((car) => Number(car.id) === Number(id));
+
+  const handleCancelBooking = async (bookingId) => {
+    if (!window.confirm("Are you sure you want to cancel this booking?")) return;
+
+    try {
+      await apiDelete("/bookings", bookingId);
+      setBookings((prev) => prev.filter((b) => b.id !== bookingId));
+    } catch (err) {
+      console.error("Failed to cancel booking:", err);
+      alert("Something went wrong while cancelling the booking.");
+    }
+  };
 
   if (loading) return <p>Loading your bookings...</p>;
   if (error) return <p className="error">{error}</p>;
@@ -52,11 +65,11 @@ function MyBookings() {
       {bookings.length === 0 ? (
         <p>You have not booked any cars yet.</p>
       ) : (
-        <div className="booking-grid">
+        <div className="car-list">
           {bookings.map((booking) => {
             const car = getCarById(booking.carId);
             return (
-              <div key={booking.id} className="booking-card">
+              <div key={booking.id} className="car-card">
                 {car ? (
                   <>
                     <img
@@ -64,11 +77,17 @@ function MyBookings() {
                       alt={`${car.make} ${car.model}`}
                       className="car-image"
                     />
-                    <div className="booking-info">
+                    <div className="car-details">
                       <h3>{car.make} {car.model}</h3>
                       <p><strong>Pickup Date:</strong> {booking.pickupDate}</p>
                       <p><strong>Return Date:</strong> {booking.returnDate}</p>
                       <p><strong>Total Price:</strong> KES {booking.totalPrice.toLocaleString()}</p>
+                      <button
+                        className="cancel-btn"
+                        onClick={() => handleCancelBooking(booking.id)}
+                      >
+                        Cancel Booking
+                      </button>
                     </div>
                   </>
                 ) : (

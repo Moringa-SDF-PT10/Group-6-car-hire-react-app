@@ -82,7 +82,25 @@ export async function apiPut(endpoint, data) {
   }
 }
 
+export async function apiDelete(endpoint, id) {
+  const res = await fetch(`${baseUrl}${endpoint}/${id}`, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+
+  if (!res.ok) {
+    throw new Error("Delete request failed");
+  }
+
+  return true;
+}
+
+
 export const ADMIN_USERNAME = 'admin';
 export const ADMIN_PASSWORD = 'admin123';
 
 export const ADMIN_CHOICE_ROUTE = '/admin/choice';
+
+
