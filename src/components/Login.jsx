@@ -5,20 +5,14 @@ import { toast } from "react-toastify";
 import "../index.css";
 
 function Login() {
-  const [formData, setFormData] = useState({
-    email: "",
-    password: "",
-  });
+  const [formData, setFormData] = useState({ email: "", password: "" });
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleLogin = async (e) => {
@@ -26,9 +20,8 @@ function Login() {
     setIsLoading(true);
     setError(null);
 
-      try {
+    try {
       const users = await apiGet("/users");
-
       const matchedUser = users.find(
         (user) =>
           user.email === formData.email && user.password === formData.password
@@ -37,14 +30,16 @@ function Login() {
       if (!matchedUser) {
         throw new Error("Invalid email or password");
       }
-       
-      localStorage.setItem("token", "fake-jwt-token");
 
-      navigate("/cars");
+      // Save token and user to localStorage
+      localStorage.setItem("token", "fake-jwt-token");
+      localStorage.setItem("user", JSON.stringify(matchedUser));
+
+      navigate("/dashboard");
     } catch (err) {
-        const message = err.message || "Login failed"
-        setError(message)
-        toast.error(message)
+      const message = err.message || "Login failed";
+      setError(message);
+      toast.error(message);
     } finally {
       setIsLoading(false);
     }

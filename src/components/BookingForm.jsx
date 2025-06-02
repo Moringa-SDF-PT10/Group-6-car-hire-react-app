@@ -1,9 +1,8 @@
 import { useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { apiGet, apiPost } from '../api';
-import { toast, } from 'react-toastify';
+import { toast } from 'react-toastify';
 
-//this is my original
 const BookingForm = () => {
   const { id } = useParams();
   const [car, setCar] = useState(null);
@@ -13,9 +12,6 @@ const BookingForm = () => {
     pickupDate: '',
     returnDate: ''
   });
-
-
-
   const [totalPrice, setTotalPrice] = useState(0);
   const [error, setError] = useState('');
 
@@ -39,10 +35,7 @@ const BookingForm = () => {
   }, [formData, car]);
 
   const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    });
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = async (e) => {
@@ -64,77 +57,48 @@ const BookingForm = () => {
 
     try {
       await apiPost('/bookings', bookingData);
-      toast.success(' Booking successful!');
-
+      toast.success('✅ Booking successful!');
       setFormData({
         name: '',
         email: '',
         pickupDate: '',
         returnDate: ''
       });
+      setTotalPrice(0);
     } catch (err) {
       console.error("Booking error:", err);
       toast.error('❌ Booking failed. Please try again.');
     }
   };
 
-  if (error) return <div>{error}</div>;
+  if (error) return <div className="error">{error}</div>;
   if (!car) return <div>Loading car details...</div>;
 
   const today = new Date().toISOString().split('T')[0];
 
   return (
-    <div>
+    <div className="booking-form-container">
       <h1>Book {car.make} {car.model}</h1>
       <form onSubmit={handleSubmit}>
         <div>
-          <label>Name:</label>
-          <input 
-            type="text" 
-            name="name" 
-            value={formData.name} 
-            onChange={handleChange} 
-            required 
-          />
+          <input type="text" name="name" placeholder="Name" value={formData.name} onChange={handleChange} required />
         </div>
         <div>
-          <label>Email:</label>
-          <input 
-            type="email" 
-            name="email" 
-            value={formData.email} 
-            onChange={handleChange} 
-            required 
-          />
+          <input type="email" name="email" placeholder="Email" value={formData.email} onChange={handleChange} required />
         </div>
         <div>
           <label>Pickup Date:</label>
-          <input 
-            type="date" 
-            name="pickupDate" 
-            min={today}
-            value={formData.pickupDate} 
-            onChange={handleChange} 
-            required 
-          />
+          <input type="date" name="pickupDate" min={today} value={formData.pickupDate} onChange={handleChange} required />
         </div>
         <div>
           <label>Return Date:</label>
-          <input 
-            type="date" 
-            name="returnDate" 
-            min={formData.pickupDate || today}
-            value={formData.returnDate} 
-            onChange={handleChange} 
-            required 
-          />
+          <input type="date" name="returnDate" min={formData.pickupDate || today} value={formData.returnDate} onChange={handleChange} required />
         </div>
         <div>
           <strong>Total Price:</strong> KES {totalPrice.toLocaleString()}
         </div>
-        <button type="submit">Book Now</button>
+        <button className="bookNow" type="submit">Book Now</button>
       </form>
-
     </div>
   );
 };

@@ -1,10 +1,27 @@
+import { useEffect, useState } from 'react';
 import { Navigate } from 'react-router-dom';
+import { apiGet } from '../api.jsx';
 
 const AdminRoute = ({ children }) => {
-  const user = JSON.parse(localStorage.getItem('user')); // Adjust as needed
-  const isAdmin = user?.role === 'admin';
+  const [loading, setLoading] = useState(true);
+  const [isAdmin, setIsAdmin] = useState(false);
 
-  return isAdmin ? children : <Navigate to="/" />;
+  useEffect(() => {
+
+    apiGet('/auth/me')  
+      .then((user) => {
+        setIsAdmin(user.role === 'admin');
+        setLoading(false);
+      })
+      .catch(() => {
+        setIsAdmin(false);
+        setLoading(false);
+      });
+  }, []);
+
+  if (loading) return <div>Loading...</div>;
+
+  return isAdmin ? children : <Navigate to="/admin/login" replace />;
 };
 
-export default AdminRoute;
+export default AdminRoute

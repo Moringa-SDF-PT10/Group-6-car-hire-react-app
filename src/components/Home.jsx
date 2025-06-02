@@ -1,51 +1,25 @@
-
-
-import { Link } from 'react-router-dom';
-
-
-const Home = () => {
-
-
-  return (
-    <>
-     <div> 
-      <h1>Welcome to the Car Hire App 🚗</h1>
-     <nav>
-        <Link to="/car" style={{ color: 'black', textDecoration: 'none' }}>
-          Booking
-        </Link>
-        <Link to="/admin/login" style={{ color: 'black', textDecoration: 'none' }}>
-          Admin
-        </Link>
-      </nav>
-
-
-    </div>
-    </>
-  );
-}; 
-
-export default Home;
-
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { apiGet } from "../api";
 import { getCarImage } from "../utilities/imageUtilities";
-
 import "../index.css";
-
-const carImages = import.meta.glob('../assets/*.png', { eager: true });
 
 function Home() {
   const [cars, setCars] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
+
+    const token = localStorage.getItem('authToken') || sessionStorage.getItem('authToken');
+    setIsLoggedIn(!!token);
+
     const fetchCars = async () => {
       try {
         const data = await apiGet("/cars"); 
-        setCars(data.slice(0, 3));
+        setCars(data.slice(0, 3)); 
       } catch (error) {
         console.error("Error fetching cars:", error);
         setError("Failed to load featured cars");
@@ -57,15 +31,21 @@ function Home() {
     fetchCars();
   }, []);
 
+  const handleBrowseAll = () => {
+    if (isLoggedIn) {
+      navigate("/cars");
+    } else {
+      navigate("/login", { state: { from: "/cars" } }); 
+    }
+  };
+
   return (
     <div className="home-container">
       <header className="header-section">
         <h1>Welcome to Group 6 Car Hire Services</h1>
         <p className="header-subtitle">Find the best car rentals at unbeatable prices!</p>
-        <div className="header-actions">
-          <Link to="/cars" className="home-container-btn">Browse All Cars</Link>
-        </div>
       </header>
+
       <section className="featured-cars">
         <h2>Frequently Hired Cars</h2>
         {loading ? (
@@ -83,7 +63,11 @@ function Home() {
                 />
                 <div className="car-details">
                   <h3>{car.make} {car.model}</h3>
-                  <Link to={`/cars/${car.id}`} className="btn-outline">
+                  <p className="pricePerDay">Kshs. {car.pricePerDay}/day</p>
+                  <Link 
+                    to={`/cars/${car.id}`} 
+                    className="btn-outline"
+                  >
                     View Details
                   </Link>
                 </div>
@@ -92,9 +76,13 @@ function Home() {
           </div>
         )}
       </section>
+      <button className="btn-browse"
+            onClick={handleBrowseAll}
+          >
+            {isLoggedIn ? "Browse All Cars" : "Log In to Browse All Cars"}
+          </button>
     </div>
   );
 }
 
 export default Home;
-

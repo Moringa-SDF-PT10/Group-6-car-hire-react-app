@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
-// all my variable should be in the api
+import { ADMIN_USERNAME, ADMIN_PASSWORD, ADMIN_CHOICE_ROUTE } from '../api.jsx';
 
 const AdminLogin = () => {
   const [username, setUsername] = useState('');
@@ -12,25 +12,25 @@ const AdminLogin = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // Replace with your actual authentication logic
-    if (username === 'admin' && password === 'admin123') {
+    if (username === ADMIN_USERNAME && password === ADMIN_PASSWORD) {
       localStorage.setItem('user', JSON.stringify({ username, role: 'admin' }));
-      navigate('/admin/choose');
+      navigate(ADMIN_CHOICE_ROUTE);
     } else {
       toast.error('Invalid credentials');
     }
   };
 
   return (
-    <div>
+    <div className="admin-login-container">
       <h2>Admin Login</h2>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className="admin-login-form">
         <input 
           type="text" 
           placeholder="Username" 
           value={username}
           onChange={e => setUsername(e.target.value)}
           required
+          aria-label="Username"
         />
         <input 
           type="password" 
@@ -38,6 +38,7 @@ const AdminLogin = () => {
           value={password}
           onChange={e => setPassword(e.target.value)}
           required
+          aria-label="Password"
         />
         <button type="submit">Login</button>
       </form>
@@ -45,4 +46,4 @@ const AdminLogin = () => {
   );
 };
 
-export default AdminLogin;
+export default AdminLogin
