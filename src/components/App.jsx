@@ -28,9 +28,10 @@ function Layout() {
     <div className="app-layout">
       <nav className="navbar">
         <Link to="/" className="nav-link">Home</Link>
-        <Link to="/login" className="nav-link">Login</Link>
-        <Link to="/register" className="nav-link">Register</Link>
+        {/* <Link to="/login" className="nav-link">Login</Link>
+        <Link to="/register" className="nav-link">Register</Link> */}
         <Link to="/dashboard" className="nav-link">Dashboard</Link>
+        <Link to="/admin/login" className="nav-link">Admin Login</Link>
       </nav>
 
       <main className="main-content-area">
@@ -71,8 +72,8 @@ function App() {
           {/* Admin Routes */}
           <Route path="admin/login" element={<AdminLogin />} />
           <Route path="admin/choice" element={<AdminChoice />} />
-          <Route path="admin/cars" element={<AdminRoute><CarManagement /></AdminRoute>} />
-          <Route path="admin/users" element={<AdminRoute><UserManagement /></AdminRoute>} />
+          <Route path="admin/cars" element={<CarManagement />} />
+          <Route path="admin/users" element={<UserManagement />} />
         </Route>
       </Routes>
     </Router>
